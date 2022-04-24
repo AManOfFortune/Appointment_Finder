@@ -40,7 +40,7 @@
                     <option value="ID123">NovaRock-Festival</option>
                 </select>
 
-                <button class="button" id="joinButton" onclick="" disabled>Join</button>
+                <button class="button" id="joinButton" onclick="show('viewAppointment', 'joinAppointment', 'left');" disabled>Join</button>
             </div>
         </div> 
 
@@ -76,7 +76,63 @@
             </div>
 
             <button class="button" id="createButton" disabled>Create</button>
-        </div> 
+        </div>
+
+        <div class="tab" id="viewAppointment" style="transform: translate(75%, -50%);">
+            <a class="back_link" onclick="show('joinAppointment', 'viewAppointment', 'right');">&#8249;</a>
+
+            <h1>Vote!</h1>
+
+            <h2>Meeting with friends</h2>
+
+            <p>"We wanna meet at the park for old times sake somewhere around July. I am excited for all of you already! :D"</p>
+
+            <h2>Your Name:</h2>
+            <input type="text" id="voteName" name="voteName">
+
+            <h2>Comment (optional):</h2>
+            <textarea rows="3" id="voteComment" name="voteComment"></textarea>
+
+            <h2>Dates:</h2>
+
+            <div id="voteDates">
+                <div class="row">
+                    <div class="date-container">
+                        <p class="date-month">Mar</p>
+                        <p class="date-day">23</p>
+                        <p class="date-weekday">Tue</p>
+                    </div>
+
+                    <p class="date-time">15:00 - 16:00</p>
+
+                    <input type="checkbox">
+                </div>
+                <div class="row">
+                    <div class="date-container">
+                        <p class="date-month">Mar</p>
+                        <p class="date-day">23</p>
+                        <p class="date-weekday">Tue</p>
+                    </div>
+
+                    <p class="date-time">20:00 - 21:00</p>
+
+                    <input type="checkbox">
+                </div>
+                <div class="row">
+                    <div class="date-container">
+                        <p class="date-month">Mar</p>
+                        <p class="date-day">24</p>
+                        <p class="date-weekday">Wed</p>
+                    </div>
+
+                    <p class="date-time">10:00 - 11:00</p>
+
+                    <input type="checkbox">
+                </div>
+            </div>
+
+            <button class="button" id="voteButton" disabled>Vote</button>
+        </div>
     </div>
 
     <script type="text/javascript" src="script.js"></script>
