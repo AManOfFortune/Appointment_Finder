@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointmentfinder</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <div class="tab" id="start">
+            <button class="button" onclick="show('joinAppointment', 'start', 'left');">Join</button>
+            <h2>or</h2>
+            <button class="button" id="createNew" onclick="show('createAppointment', 'start', 'left');">Create New</button>
+            <h2>Appointment</h2>
+        </div> 
+
+        <div class="tab" id="joinAppointment" style="transform: translate(75%, -50%);">
+            <a class="back_link" onclick="show('start', 'joinAppointment', 'right');">&#8249;</a>
+
+            <h1>Join!</h1>
+            <h2>Input the private appointment ID:</h2>
+
+            <input type="text" id="privateAppointmentID" name="privateAppointmentID" oninput="idInputMade('private');">
+
+            <p>or</p>
+            
+            <div class="container">
+                <h2>Choose a public appointment:</h2>
+
+                <select class="select" name="publicAppointmentID" id="publicAppointmentID" onchange="idInputMade('public');">
+                    <option value="Invalid" selected>Select here</option>
+                    <option value="ID123">Walk in the park</option>
+                    <option value="ID123">Meeting old friends</option>
+                    <option value="ID123">Threesome</option>
+                    <option value="ID123">Gangbang</option>
+                    <option value="ID123">NovaRock-Festival</option>
+                </select>
+
+                <button class="button" id="joinButton" onclick="" disabled>Join</button>
+            </div>
+        </div> 
+
+        <div class="tab" id="createAppointment" style="transform: translate(75%, -50%);">
+            <a class="back_link" onclick="show('start', 'createAppointment', 'right');">&#8249;</a>
+
+            <h1>Create!</h1>
+
+            <div class="row">
+                <input type="radio" name="createType" value="private" id="createPrivate" checked>
+                <label for="createPrivate" class="option private"><span>Private</span></label>
+                
+                <input type="radio" name="createType" value="public" id="createPublic">
+                <label for="createPublic" class="option public"><span>Public</span></label>
+            </div>
+
+            <h2>Title:</h2>
+            <input type="text" id="createTitle" name="createTitle" oninput="createInputMade();">
+
+            <h2>Description (optional):</h2>
+            <textarea rows="3" id="createDescription" name="createDescription"></textarea>
+
+            <h2>Dates:</h2>
+
+            <div class="dates-wrapper">
+                <div id="dates">
+                    <div class="date-pair">
+                        <input type="datetime-local" oninput="createInputMade();">
+                        <button class="remove-button" onclick="removeDate(this);">-</button>
+                    </div>
+                </div>
+                <button class="add-button" onclick="addNewDate();">+</button>
+            </div>
+
+            <button class="button" id="createButton" disabled>Create</button>
+        </div> 
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
