@@ -33,7 +33,7 @@ function show(what, fromWhere, shoveToThe) {
 function idInputMade(inputType) {
     const privateAppointmentID = document.querySelector('#privateAppointmentID')
     const publicAppointmentID = document.querySelector('#publicAppointmentID')
-    const joinButton = document.querySelector('#joinButton')
+    const joinButton = document.querySelector('#viewButton')
 
     //If user selected a public appointment
     if(inputType == 'public') {
@@ -100,6 +100,7 @@ function removeDate(buttonClicked) {
 function createInputMade() {
     const titleInput = document.querySelector('#createTitle')
     const dateWrapper = document.querySelector('#dates')
+    const button = document.querySelector('#createButton')
 
     var datesProvided = true
 
@@ -111,9 +112,29 @@ function createInputMade() {
     }
 
     if(titleInput.value != '' && datesProvided) {
-        document.querySelector('#createButton').removeAttribute('disabled')
+        button.removeAttribute('disabled')
     }
     else {
-        document.querySelector('#createButton').setAttribute('disabled', 'true')
+        button.setAttribute('disabled', 'true')
+    }
+}
+
+function selectDateCheckbox(clickedRow) {
+    const checkbox = clickedRow.querySelector('input[type="checkbox"]')
+    if(checkbox.checked) {
+        checkbox.checked = false
+    }
+    else {
+        checkbox.checked = true
+    }
+}
+
+function voteInputMade(nameElement) {
+    const voteButton = document.querySelector('#confirmVoteButton')
+    if(nameElement.value != "") {
+        voteButton.removeAttribute("disabled")
+    }
+    else {
+        voteButton.setAttribute('disabled', 'true')
     }
 }

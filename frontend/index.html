@@ -12,36 +12,34 @@
 
     <div class="content-wrapper">
         <div class="tab" id="start">
-            <button class="button" onclick="show('joinAppointment', 'start', 'left');">Join</button>
+            <button class="button" onclick="show('viewAppointment', 'start', 'left');">View</button>
             <h2>or</h2>
             <button class="button" id="createNew" onclick="show('createAppointment', 'start', 'left');">Create New</button>
             <h2>Appointment</h2>
         </div> 
 
-        <div class="tab" id="joinAppointment" style="transform: translate(75%, -50%);">
-            <a class="back_link" onclick="show('start', 'joinAppointment', 'right');">&#8249;</a>
+        <div class="tab" id="viewAppointment" style="transform: translate(75%, -50%);">
+            <a class="back_link" onclick="show('start', 'viewAppointment', 'right');">&#8249;</a>
 
-            <h1>Join!</h1>
+            <h1>View!</h1>
             <h2>Input the private appointment ID:</h2>
 
             <input type="text" id="privateAppointmentID" name="privateAppointmentID" oninput="idInputMade('private');">
 
             <p>or</p>
-            
-            <div class="container">
-                <h2>Choose a public appointment:</h2>
 
-                <select class="select" name="publicAppointmentID" id="publicAppointmentID" onchange="idInputMade('public');">
-                    <option value="Invalid" selected>Select here</option>
-                    <option value="ID123">Walk in the park</option>
-                    <option value="ID123">Meeting old friends</option>
-                    <option value="ID123">Threesome</option>
-                    <option value="ID123">Gangbang</option>
-                    <option value="ID123">NovaRock-Festival</option>
-                </select>
+            <h2>Choose a public appointment:</h2>
 
-                <button class="button" id="joinButton" onclick="show('viewAppointment', 'joinAppointment', 'left');" disabled>Join</button>
-            </div>
+            <select class="select" name="publicAppointmentID" id="publicAppointmentID" onchange="idInputMade('public');">
+                <option value="Invalid" selected>Select here</option>
+                <option value="ID123">Walk in the park</option>
+                <option value="ID123">Meeting old friends</option>
+                <option value="ID123">Threesome</option>
+                <option value="ID123">Gangbang</option>
+                <option value="ID123">NovaRock-Festival</option>
+            </select>
+
+            <button class="button" id="viewButton" onclick="show('joinAppointment', 'viewAppointment', 'left');" disabled>View</button>
         </div> 
 
         <div class="tab" id="createAppointment" style="transform: translate(75%, -50%);">
@@ -63,8 +61,14 @@
             <h2>Description (optional):</h2>
             <textarea rows="3" id="createDescription" name="createDescription"></textarea>
 
-            <h2>Dates:</h2>
+            <h2>Voting ends on:</h2>
+            <div style="width: 100%;">
+                <input type="datetime-local" id="createVotingEnd">
+            </div>
 
+            <div class="divider"></div>
+
+            <h2>Dates:</h2>
             <div class="dates-wrapper">
                 <div id="dates">
                     <div class="date-pair">
@@ -78,17 +82,47 @@
             <button class="button" id="createButton" disabled>Create</button>
         </div>
 
-        <div class="tab" id="viewAppointment" style="transform: translate(75%, -50%);">
-            <a class="back_link" onclick="show('joinAppointment', 'viewAppointment', 'right');">&#8249;</a>
+        <div class="tab" id="joinAppointment" style="transform: translate(75%, -50%);">
+            <a class="back_link" onclick="show('viewAppointment', 'joinAppointment', 'right');">&#8249;</a>
+
+            <h1>View!</h1>
+
+            <h2 id="viewTitle">Meeting with friends</h2>
+
+            <p id="viewDescription">We wanna meet at the park for old times sake somewhere around July. I am excited for all of you already! :D</p>
+
+            <h3>Comments</h3>
+
+            <div id="comments">
+                <div class="comment">
+                    <p class="comment-name">Josh</p>
+                    <p class="comment-text">Wow I can't wait to see all of you!! It's been so long, I wonder if I will recognize you...</p>
+                </div>
+                <div class="comment">
+                    <p class="comment-name">Peter</p>
+                    <p class="comment-text">I cannot come unfortunately, but I wish you all the best nonetheless!</p>
+                </div>
+                <div class="comment">
+                    <p class="comment-name">Esmeralda</p>
+                    <p class="comment-text">I am wearing a pink armani-dress. I am telling you this so none of you bitches copy me.</p>
+                </div>
+            </div>
+
+            <div class="row vote-end-date-wrapper">
+                <p>Voting ends on:</p>
+                <p id="voteEndDate">24th Sept, 12:00</p>
+            </div>
+
+            <button class="button" id="voteButton" onclick="show('voteAppointment', 'joinAppointment', 'left');">Vote</button>
+        </div>
+
+        <div class="tab" id="voteAppointment" style="transform: translate(75%, -50%);">
+            <a class="back_link" onclick="show('joinAppointment', 'voteAppointment', 'right');">&#8249;</a>
 
             <h1>Vote!</h1>
-
-            <h2>Meeting with friends</h2>
-
-            <p>"We wanna meet at the park for old times sake somewhere around July. I am excited for all of you already! :D"</p>
-
+            
             <h2>Your Name:</h2>
-            <input type="text" id="voteName" name="voteName">
+            <input type="text" id="voteName" name="voteName" oninput="voteInputMade(this);">
 
             <h2>Comment (optional):</h2>
             <textarea rows="3" id="voteComment" name="voteComment"></textarea>
@@ -96,8 +130,10 @@
             <h2>Dates:</h2>
 
             <div id="voteDates">
-                <div class="row">
-                    <div class="date-container">
+                <div class="row" onclick="selectDateCheckbox(this);">
+                    <p class="date-votes">5 Votes</p>
+
+                    <div class="container">
                         <p class="date-month">Mar</p>
                         <p class="date-day">23</p>
                         <p class="date-weekday">Tue</p>
@@ -107,8 +143,10 @@
 
                     <input type="checkbox">
                 </div>
-                <div class="row">
-                    <div class="date-container">
+                <div class="row" onclick="selectDateCheckbox(this);">
+                    <p class="date-votes">5 Votes</p>
+
+                    <div class="container">
                         <p class="date-month">Mar</p>
                         <p class="date-day">23</p>
                         <p class="date-weekday">Tue</p>
@@ -118,8 +156,10 @@
 
                     <input type="checkbox">
                 </div>
-                <div class="row">
-                    <div class="date-container">
+                <div class="row" onclick="selectDateCheckbox(this);">
+                    <p class="date-votes">2 Votes</p>
+
+                    <div class="container">
                         <p class="date-month">Mar</p>
                         <p class="date-day">24</p>
                         <p class="date-weekday">Wed</p>
@@ -131,7 +171,7 @@
                 </div>
             </div>
 
-            <button class="button" id="voteButton" disabled>Vote</button>
+            <button class="button" id="confirmVoteButton" disabled>Confirm</button>
         </div>
     </div>
 
