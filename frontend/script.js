@@ -17,7 +17,7 @@ function show(what, fromWhere, shoveToThe) {
     const showContainer = document.getElementById(what)
 
     if(shoveToThe == "left") {
-        hideContainer.style.transform = 'translateX(-250%) translateY(-50%)'
+        hideContainer.style.transform = 'translateX(-200%) translateY(-50%)'
     }
     else {
         hideContainer.style.transform = 'translateX(75%) translateY(-50%)'
@@ -137,4 +137,84 @@ function voteInputMade(nameElement) {
     else {
         voteButton.setAttribute('disabled', 'true')
     }
+}
+
+function loadingScreen(doWhat) {
+    const loadingScreen = document.querySelector('.loading-screen');
+
+    if(doWhat == 'show') {
+        loadingScreen.classList.add('animation')
+    }
+    else if(doWhat == 'hide') {
+        loadingScreen.classList.remove('animation')
+    }
+}
+
+async function showError() {
+    const errorContainer = document.querySelector('.error-message')
+
+    errorContainer.style.transform = 'translateY(0)'
+    await delay(3000)
+    errorContainer.removeAttribute('style')
+}
+
+async function showSuccess() {
+    const successContainer = document.querySelector('.success-message')
+
+    successContainer.style.transform = 'translateY(0)'
+    await delay(3000)
+    successContainer.removeAttribute('style')
+}
+
+async function queryData(method) {
+    const response = await fetch(
+        "../backend/serviceHandler.php?method=" + method, 
+        {
+            method: 'GET',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+
+    return response.json();
+}
+
+async function viewAppointmentList() {
+    loadingScreen("show")
+
+    const result = await queryData('queryAllPublicAppointments')
+
+    console.log(result)
+
+    const publicSelect = document.querySelector("#publicAppointmentID")
+
+    for(let i = 0; i < result.length; i++) {
+        const newOption = document.createElement('option')
+        newOption.value = result[i][0]
+        newOption.textContent = result[i][1]
+
+        publicSelect.appendChild(newOption)
+    }
+
+    loadingScreen("hide")
+
+    show('viewAppointment', 'start', 'left')
+}
+
+async function createNewAppointment() {
+    loadingScreen("show")
+
+    //const result = await queryData('createNewAppointment')
+
+    loadingScreen("hide")
+}
+
+
+
+function delay(milliseconds) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, milliseconds);
+    });
 }

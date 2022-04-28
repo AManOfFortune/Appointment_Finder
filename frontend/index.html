@@ -12,7 +12,7 @@
 
     <div class="content-wrapper">
         <div class="tab" id="start">
-            <button class="button" onclick="show('viewAppointment', 'start', 'left');">View</button>
+            <button class="button" onclick="viewAppointmentList();">View</button>
             <h2>or</h2>
             <button class="button" id="createNew" onclick="show('createAppointment', 'start', 'left');">Create New</button>
             <h2>Appointment</h2>
@@ -32,11 +32,6 @@
 
             <select class="select" name="publicAppointmentID" id="publicAppointmentID" onchange="idInputMade('public');">
                 <option value="Invalid" selected>Select here</option>
-                <option value="ID123">Walk in the park</option>
-                <option value="ID123">Meeting old friends</option>
-                <option value="ID123">Threesome</option>
-                <option value="ID123">Gangbang</option>
-                <option value="ID123">NovaRock-Festival</option>
             </select>
 
             <button class="button" id="viewButton" onclick="show('joinAppointment', 'viewAppointment', 'left');" disabled>View</button>
@@ -79,7 +74,7 @@
                 <button class="add-button" onclick="addNewDate();">+</button>
             </div>
 
-            <button class="button" id="createButton" disabled>Create</button>
+            <button class="button" id="createButton" onclick="createNewAppointment()" disabled>Create</button>
         </div>
 
         <div class="tab" id="joinAppointment" style="transform: translate(75%, -50%);">
@@ -173,6 +168,18 @@
 
             <button class="button" id="confirmVoteButton" disabled>Confirm</button>
         </div>
+
+        <div class="loading-screen">
+            <img src="img/loading_circle.gif">
+        </div>
+    </div>
+
+    <div class="success-message">
+        <p>Success!</p>
+    </div>
+
+    <div class="error-message">
+        <p>Error!</p>
     </div>
 
     <script type="text/javascript" src="script.js"></script>
