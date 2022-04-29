@@ -34,7 +34,7 @@
                 <option value="Invalid" selected>Select here</option>
             </select>
 
-            <button class="button" id="viewButton" onclick="show('joinAppointment', 'viewAppointment', 'left');" disabled>View</button>
+            <button class="button" id="viewButton" onclick="viewAppointment();" disabled>View</button>
         </div> 
 
         <div class="tab" id="createAppointment" style="transform: translate(75%, -50%);">
@@ -74,7 +74,13 @@
                 <button class="add-button" onclick="addNewDate();">+</button>
             </div>
 
-            <button class="button" id="createButton" onclick="createNewAppointment()" disabled>Create</button>
+            <button class="button" id="createButton" onclick="createNewAppointment()">Create</button>
+        </div>
+
+        <div class="tab" id="shareID" style="transform: translate(75%, -50%);">
+            <a class="back_link" onclick="show('createAppointment', 'shareID', 'right'); show('start', 'createAppointment', 'right');">&#8249;</a>
+            <h1>Share!</h1>
+            <h2 id="shareMeetingCode">Meetingcode: </h2>
         </div>
 
         <div class="tab" id="joinAppointment" style="transform: translate(75%, -50%);">
@@ -82,30 +88,32 @@
 
             <h1>View!</h1>
 
-            <h2 id="viewTitle">Meeting with friends</h2>
+            <h2 id="voteWinner"></h2>
 
-            <p id="viewDescription">We wanna meet at the park for old times sake somewhere around July. I am excited for all of you already! :D</p>
+            <h2 id="viewTitle"></h2>
+
+            <p id="viewDescription"></p>
 
             <h3>Comments</h3>
 
             <div id="comments">
                 <div class="comment">
-                    <p class="comment-name">Josh</p>
-                    <p class="comment-text">Wow I can't wait to see all of you!! It's been so long, I wonder if I will recognize you...</p>
+                    <p class="comment-name"></p>
+                    <p class="comment-text"></p>
                 </div>
                 <div class="comment">
-                    <p class="comment-name">Peter</p>
-                    <p class="comment-text">I cannot come unfortunately, but I wish you all the best nonetheless!</p>
+                    <p class="comment-name"></p>
+                    <p class="comment-text"></p>
                 </div>
                 <div class="comment">
-                    <p class="comment-name">Esmeralda</p>
-                    <p class="comment-text">I am wearing a pink armani-dress. I am telling you this so none of you bitches copy me.</p>
+                    <p class="comment-name"></p>
+                    <p class="comment-text"></p>
                 </div>
             </div>
 
             <div class="row vote-end-date-wrapper">
                 <p>Voting ends on:</p>
-                <p id="voteEndDate">24th Sept, 12:00</p>
+                <p id="voteEndDate"></p>
             </div>
 
             <button class="button" id="voteButton" onclick="show('voteAppointment', 'joinAppointment', 'left');">Vote</button>
@@ -124,49 +132,9 @@
 
             <h2>Dates:</h2>
 
-            <div id="voteDates">
-                <div class="row" onclick="selectDateCheckbox(this);">
-                    <p class="date-votes">5 Votes</p>
+            <div id="voteDates"></div>
 
-                    <div class="container">
-                        <p class="date-month">Mar</p>
-                        <p class="date-day">23</p>
-                        <p class="date-weekday">Tue</p>
-                    </div>
-
-                    <p class="date-time">15:00 - 16:00</p>
-
-                    <input type="checkbox">
-                </div>
-                <div class="row" onclick="selectDateCheckbox(this);">
-                    <p class="date-votes">5 Votes</p>
-
-                    <div class="container">
-                        <p class="date-month">Mar</p>
-                        <p class="date-day">23</p>
-                        <p class="date-weekday">Tue</p>
-                    </div>
-
-                    <p class="date-time">20:00 - 21:00</p>
-
-                    <input type="checkbox">
-                </div>
-                <div class="row" onclick="selectDateCheckbox(this);">
-                    <p class="date-votes">2 Votes</p>
-
-                    <div class="container">
-                        <p class="date-month">Mar</p>
-                        <p class="date-day">24</p>
-                        <p class="date-weekday">Wed</p>
-                    </div>
-
-                    <p class="date-time">10:00 - 11:00</p>
-
-                    <input type="checkbox">
-                </div>
-            </div>
-
-            <button class="button" id="confirmVoteButton" disabled>Confirm</button>
+            <button class="button" id="confirmVoteButton" onclick="voteOnAppointment();" disabled>Confirm</button>
         </div>
 
         <div class="loading-screen">

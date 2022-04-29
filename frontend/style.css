@@ -566,6 +566,12 @@ input[type="datetime-local"] {
 }
 
 /* Vote Appointment Page */
+#voteWinner {
+    font-style: bold;
+    color: var(--light-red);
+    display: none;
+}
+
 #voteDates, #comments {
     width: 100%;
     display: flex;

@@ -14,16 +14,23 @@ class SimpleLogic
     function handleRequest($method, $param)
     {
         switch ($method) {   
-            case "queryAllAppointmentData":
-                $res = $this->dh->queryAllAppointmentData();
-                break;
             case "queryAllPublicAppointments":
                 $res = $this->dh->queryAllPublicAppointments();
+                break;
+            case "createNewAppointment":
+                $res = $this->dh->createNewAppointment($param);
+                break;
+            case "addVotes":
+                $res = $this->dh->addVotes($param);
+                break;
+            case "selectAppointmentViaIDAndReturnAll":
+                $res = $this->dh->selectAppointmentViaIDAndReturnAll($param);
                 break;
             default:
                 $res = null;
                 break;
         }
+
         return $res;
     }
 }
