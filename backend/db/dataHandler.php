@@ -49,18 +49,64 @@ class DataHandler
     //     $stmt->execute();
     // }
 
-    public function queryAllAppointmentData() {
-        $select_all_news_stmt = $GLOBALS['db']->prepare("SELECT * FROM `appointment`");
-        $select_all_news_stmt->execute();
-        $select_all_news_stmt->bind_result($appointment_id, $name, $description, $pub_pri_flag, $closed_flag, $closes_on);
+    //TODO: input for appointment_ID (replace $helper)
+    public function selectAppointmentViaIDAndReturnAll(){
+        $helper = 1;
 
+        $select_userIDs_stmt = $GLOBALS['db']->prepare("SELECT `users_ID` FROM  `users` where `FK_appointment` = $helper");
+        $select_userIDs_stmt->execute();
+        $select_userIDs_stmt->bind_result($users_ID);
+        $user_ID = (int) $users_ID;
+        $select_userIDs_stmt->close();
+
+        /*$numOfUser = (int) $users_ID;*/
+       
+        //select all necessary data for prepared statement
+        $select_all_data_via_ID_stmt = $GLOBALS['db']->prepare("SELECT * FROM `appointment` WHERE `appointment_ID` = $helper");
+        $select_all_users_via_ID_stmt = $GLOBALS['db']->prepare("SELECT * FROM  `users` WHERE `FK_appointment` =  $helper");
+        $select_all_table_termin_via_ID_stmt = $GLOBALS['db']->prepare("SELECT * FROM `table termin` WHERE `FK_appointmentID` =  $helper");
+        $select_termin_via_userIds_stmt = $GLOBALS['db']->prepare("SELECT `FK_Termin` FROM  `termin-user` WHERE `FK_User` = $user_ID");//userID
+        $select_numOfUsers_stmt = $GLOBALS['db']->prepare("SELECT COUNT(`FK_Termin`) FROM  `termin-user` where `FK_User` =  $helper");
+
+
+        //execute statements
+        $select_all_data_via_ID_stmt->execute();
+        $select_all_users_via_ID_stmt->execute();
+        $select_all_table_termin_via_ID_stmt->execute();
+        $select_termin_via_userIds_stmt->execute();
+        $select_numOfUsers_stmt->execute();
+
+        //bind results
+        $select_all_data_via_ID_stmt->bind_result($appointment_id, $name, $Description, $public_private_Flag, $closed_flag, $closes_on);
+        $select_all_users_via_ID_stmt->bind_result($users_ID, $username, $comment, $FK_appointment);
+        $select_all_table_termin_via_ID_stmt->bind_result($Termin_ID, $date, $time, $FK_appointmentID);
+        $select_termin_via_userIds_stmt->bind_result($FK_Termin);
+        $select_numOfUsers_stmt->bind_result($users_ID);
+
+
+        //concatenate all data in array $result
         $result = array();
-        
-        while($select_all_news_stmt->fetch()) {
-            array_push($result, [$appointment_id, $name, $description, $pub_pri_flag, $closed_flag, $closes_on]);
-        };
-        
-        $select_all_news_stmt->close();
+        while($select_all_data_via_ID_stmt->fetch()) {
+            array_push($result, [$appointment_id, $name, $Description, $public_private_Flag, $closed_flag, $closes_on]);
+            while($select_all_users_via_ID_stmt->fetch()){
+                array_push($result, [$users_ID, $username, $comment, $FK_appointment]);
+                while($select_all_table_termin_via_ID_stmt->fetch()){
+                    array_push($result, [$Termin_ID, $date, $time, $FK_appointmentID, $numOfUser]);
+                    while($select_termin_via_userIds_stmt->fetch()){
+                        array_push($result, [$FK_Termin]);
+                        while($select_numOfUsers_stmt->fetch()){
+                            array_push($result, [$users_ID]);
+                        }
+                    }
+                }
+            }
+        };  
+
+        $select_all_data_via_ID_stmt->close();
+        $select_all_users_via_ID_stmt->close();
+        $select_all_table_termin_via_ID_stmt->close();
+        $select_termin_via_userIds_stmt->close();
+        $select_numOfUsers_stmt->close();
 
         return $result;
     }
